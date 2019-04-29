@@ -1,0 +1,23 @@
+version: "3"
+services:
+  web:
+    # pull the image from Dockerhub
+    image: chanonroy/docker-compose-test:part2
+    deploy:
+      # Run 5 instances of the service
+      replicas: 5
+      # Limit to 10% of single core of CPU time and 50MB of RAM
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      # Immediately restart containers if they fail
+      restart_policy:
+        condition: on-failure
+    ports:
+      # Map port 4000 to port 80
+      - "4000:80"
+    networks:
+      - webnet
+networks:
+  webnet:
